@@ -134,4 +134,25 @@ public class User {
         }catch (SQLException e){e.printStackTrace();}
         return null;
     }
+
+    public static ArrayList<User> loadAllByGroupId(int groupId) {
+        try {
+            ArrayList<User> users = new ArrayList<>();
+            String sql = "SELECT id, username, password, email FROM users WHERE user_group_id = ?";
+            PreparedStatement preparedStatement;
+            preparedStatement = DbManager.getInstance().getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, groupId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()) {
+                User user = new User();
+                user.id = rs.getInt("id");
+                user.username = rs.getString("username");
+                user.password = rs.getString("password");
+                user.email = rs.getString("email");
+                users.add(user);
+            }
+            return users;
+        } catch (SQLException e) { e.printStackTrace(); }
+        return null;
+    }
 }
