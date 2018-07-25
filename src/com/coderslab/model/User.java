@@ -1,10 +1,11 @@
-package com.coderslab;
+package com.coderslab.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.coderslab.sql.DbManager;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class User {

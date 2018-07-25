@@ -1,4 +1,6 @@
-package com.coderslab;
+package com.coderslab.model;
+
+import com.coderslab.sql.DbManager;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
