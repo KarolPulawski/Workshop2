@@ -49,6 +49,30 @@ public class Solution {
         this.users_id = users_id;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getExercise_id() {
+        return exercise_id;
+    }
+
+    public int getUsers_id() {
+        return users_id;
+    }
+
     //Active Record
     public void saveToDB() {
         // insert/update
@@ -66,7 +90,10 @@ public class Solution {
                 preparedStatement.setInt(4, this.exercise_id);
                 preparedStatement.setInt(5, this.users_id);
                 preparedStatement.executeUpdate();
-            } catch (SQLException e) { e.printStackTrace(); }
+            } catch (SQLException e) {
+                //e.printStackTrace();
+                System.out.println("User or exercise does not exist.");
+            }
         } else {
             // update
             try {

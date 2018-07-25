@@ -28,7 +28,7 @@ public class Administration {
         System.out.println("*** (1) for users administration");
         System.out.println("*** (2) for exercises administration");
         System.out.println("*** (3) for groups administration");
-        System.out.println("*** (4) for tasks schedule");
+        System.out.println("*** (4) for solution administration");
 
         switch(getIntFromUser()) {
             case 1:
@@ -39,6 +39,9 @@ public class Administration {
                 break;
             case 3:
                 GroupAdministration.processAction();
+                break;
+            case 4:
+                SolutionAdministration.processAction();
                 break;
             default:
                 System.out.println("Please type correct position's number.");

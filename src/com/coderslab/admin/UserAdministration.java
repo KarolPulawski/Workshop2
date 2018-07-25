@@ -39,6 +39,7 @@ public class UserAdministration {
             int user_group_id = user.getUser_group_id();
             System.out.printf("%-5d %-20s %-40s %-5d \n", user_id, user_username, user_email, user_group_id);
         }
+        System.out.println("--------------------------------------------------------------------------------");
     }
 
     public static void processAction() {
