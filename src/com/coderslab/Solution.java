@@ -160,4 +160,26 @@ public class Solution {
         } catch (SQLException e) { e.printStackTrace(); }
         return null;
     }
+
+    public static ArrayList<Solution> loadAllByExerciseId(int exerciseId) {
+        try {
+            ArrayList<Solution> solutions = new ArrayList<>();
+            String sql = "SELECT id, created, updated, description FROM solution WHERE exercise_id = ? " +
+                    "ORDER BY updated, created ASC";
+            PreparedStatement preparedStatement;
+            preparedStatement = DbManager.getInstance().getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, exerciseId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()) {
+                Solution solution = new Solution();
+                solution.id = rs.getInt("id");
+                solution.created = rs.getDate("created");
+                solution.updated = rs.getDate("updated");
+                solution.description = rs.getString("description");
+                solutions.add(solution);
+            }
+            return solutions;
+        } catch (SQLException e) { e.printStackTrace(); }
+        return null;
+    }
 }
