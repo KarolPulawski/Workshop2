@@ -22,7 +22,13 @@ public class Group {
         this.name = name;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public String getName() {
+        return name;
+    }
 
     //Active Record
 
@@ -76,6 +82,7 @@ public class Group {
             String sql = "SELECT * FROM user_group WHERE id = ?";
             PreparedStatement preparedStatement;
             preparedStatement = DbManager.getInstance().getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if(rs.next()) {
                 Group group = new Group();

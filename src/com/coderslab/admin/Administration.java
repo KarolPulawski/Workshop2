@@ -37,6 +37,9 @@ public class Administration {
             case 2:
                 ExerciseAdministration.processAction();
                 break;
+            case 3:
+                GroupAdministration.processAction();
+                break;
             default:
                 System.out.println("Please type correct position's number.");
         }
