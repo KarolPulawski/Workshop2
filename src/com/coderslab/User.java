@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class User {
 
     private int id;
@@ -15,7 +17,7 @@ public class User {
 
     public User(String username, String password, String email, int user_group_id) {
         this.username = username;
-        this.password = password;
+        setPassword(password);
         this.email = email;
         this.user_group_id = user_group_id;
     }
@@ -29,7 +31,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     public void setEmail(String email) {
