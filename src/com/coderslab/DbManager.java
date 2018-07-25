@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class DbManager {
 
-    private static final String DB_URL = "";
-    private static final String DB_USER = "";
-    private static final String DB_PASS = "";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/workshop2?useSSL=false&characterEncoding=UTF8";
+    private static final String DB_USER = "root";
+    private static final String DB_PASS = "coderslab";
 
     private static DbManager instance;
     private static Connection connection;
