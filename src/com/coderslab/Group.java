@@ -16,6 +16,12 @@ public class Group {
 
     public Group() {}
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+
     //Active Record
 
     public void saveToDB() {
@@ -45,9 +51,7 @@ public class Group {
                 preparedStatement.setString(1, this.name);
                 preparedStatement.setInt(2, this.id);
                 preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            } catch (SQLException e) { e.printStackTrace(); }
         }
     }
 
