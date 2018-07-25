@@ -23,7 +23,7 @@ public class Group {
         if(this.id == 0) {
             // insert
             try {
-                String sql = "INSERT INTO groups(name) VALUES (?)";
+                String sql = "INSERT INTO user_group(name) VALUES (?)";
                 String generatedColumns[] = { "ID" };
                 PreparedStatement preparedStatement;
                 preparedStatement = DbManager.getInstance().getConnection().prepareStatement(sql, generatedColumns);
@@ -39,7 +39,7 @@ public class Group {
         } else {
             // update
             try {
-                String sql = "UPDATE groups SET name = ? WHERE id = ?";
+                String sql = "UPDATE user_group SET name = ? WHERE id = ?";
                 PreparedStatement preparedStatement;
                 preparedStatement = DbManager.getInstance().getConnection().prepareStatement(sql);
                 preparedStatement.setString(1, this.name);
@@ -55,7 +55,7 @@ public class Group {
         // DELETE on data base and change id onto 0
         if (this.id != 0) {
             try {
-                String sql = "DELETE FROM groups WHERE id = ?";
+                String sql = "DELETE FROM user_group WHERE id = ?";
                 PreparedStatement preparedStatement;
                 preparedStatement = DbManager.getInstance().getConnection().prepareStatement(sql);
                 preparedStatement.setInt(1, this.id);
@@ -67,7 +67,7 @@ public class Group {
 
     public static Group loadById(int id) { // id maps user from database on object
         try {
-            String sql = "SELECT * FROM groups WHERE id = ?";
+            String sql = "SELECT * FROM user_group WHERE id = ?";
             PreparedStatement preparedStatement;
             preparedStatement = DbManager.getInstance().getConnection().prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
@@ -84,7 +84,7 @@ public class Group {
     public static ArrayList<Group> loadAll() {
         try {
             ArrayList<Group> groups = new ArrayList<>();
-            String sql = "SELECT * FROM groups";
+            String sql = "SELECT * FROM user_group";
             PreparedStatement preparedStatement;
             preparedStatement = DbManager.getInstance().getConnection().prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();

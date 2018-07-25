@@ -11,11 +11,13 @@ public class User {
     private String username;
     private String password;
     private String email;
+    private int user_group_id;
 
-    public User(String username, String password, String email) {
+    public User(String username, String password, String email, int user_group_id) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.user_group_id = user_group_id;
     }
 
     public User() {
@@ -34,19 +36,24 @@ public class User {
         this.email = email;
     }
 
+    public void setUser_group_id(int user_group_id) {
+        this.user_group_id = user_group_id;
+    }
+
     //Active Record
     public void saveToDB() {
         //insert/update
         if(this.id == 0) {
             //insert
             try {
-                String sql = "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
+                String sql = "INSERT INTO users(username, email, password, user_group_id) VALUES (?, ?, ?, ?)";
                 String generatedColumns[] = { "ID" };
                 PreparedStatement preparedStatement;
                 preparedStatement = DbManager.getInstance().getConnection().prepareStatement(sql, generatedColumns);
                 preparedStatement.setString(1, this.username);
                 preparedStatement.setString(2, this.email);
                 preparedStatement.setString(3, this.password);
+                preparedStatement.setInt(4, this.user_group_id);
                 preparedStatement.executeUpdate();
                 ResultSet rs = preparedStatement.getGeneratedKeys();
                 if(rs.next()) {
@@ -58,13 +65,14 @@ public class User {
         } else {
             //update
             try {
-                String sql = "UPDATE users SET username=?, email=?, password=? where id = ?";
+                String sql = "UPDATE users SET username=?, email=?, password=?, user_group_id = ? where id = ?";
                 PreparedStatement preparedStatement;
                 preparedStatement = DbManager.getInstance().getConnection().prepareStatement(sql);
                 preparedStatement.setString(1, this.username);
                 preparedStatement.setString(2, this.email);
                 preparedStatement.setString(3, this.password);
-                preparedStatement.setInt(4, this.id);
+                preparedStatement.setInt(4, this.user_group_id);
+                preparedStatement.setInt(5, this.id);
                 preparedStatement.executeUpdate();
             } catch (SQLException e) { e.printStackTrace();}
         }
@@ -97,6 +105,7 @@ public class User {
                 user.username = rs.getString("username");
                 user.email = rs.getString("email");
                 user.password = rs.getString("password");
+                user.user_group_id = rs.getInt("user_group_id");
                 return user;
             }
         }catch (SQLException e){e.printStackTrace();}
@@ -116,12 +125,11 @@ public class User {
                 user.username = rs.getString("username");
                 user.email = rs.getString("email");
                 user.password = rs.getString("password");
+                user.user_group_id = rs.getInt("user_group_id");
                 users.add(user);
             }
             return users;
         }catch (SQLException e){e.printStackTrace();}
         return null;
     }
-
-
 }
