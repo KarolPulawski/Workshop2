@@ -28,6 +28,18 @@ public class Exercise {
         this.description = description;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     //Active Record
 
     public void saveToDB() {
@@ -55,9 +67,26 @@ public class Exercise {
                 preparedStatement = DbManager.getInstance().getConnection().prepareStatement(sql);
                 preparedStatement.setString(1, this.title);
                 preparedStatement.setString(2, this.description);
+                preparedStatement.setInt(3, this.id);
                 preparedStatement.executeUpdate();
             } catch (SQLException e) { e.printStackTrace(); }
         }
+    }
+
+    public void delete() {
+        if(this.id != 0) {
+            try {
+                String sql = "DELETE FROM exercise WHERE id = ?";
+                PreparedStatement preparedStatement;
+                preparedStatement = DbManager.getInstance().getConnection().prepareStatement(sql);
+                preparedStatement.setInt(1, this.id);
+                preparedStatement.executeUpdate();
+                this.id = 0;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public static Exercise loadById(int id) { // id maps Exercise from data base onto object
