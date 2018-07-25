@@ -26,5 +26,7 @@ public class Main {
 //
         Solution solution1 = new Solution(sqlDate, sqlDate, "this is my solution",1,6);
         solution1.saveToDB();
+
+
     }
 }

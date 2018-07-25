@@ -43,14 +43,31 @@ public class User {
         this.user_group_id = user_group_id;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getUser_group_id() {
+        return user_group_id;
+    }
+
     //Active Record
     public void saveToDB() {
+
         //insert/update
-        if(this.id == 0) {
+        if (this.id == 0) {
             //insert
             try {
                 String sql = "INSERT INTO users(username, email, password, user_group_id) VALUES (?, ?, ?, ?)";
-                String generatedColumns[] = { "ID" };
+                String generatedColumns[] = {"ID"};
                 PreparedStatement preparedStatement;
                 preparedStatement = DbManager.getInstance().getConnection().prepareStatement(sql, generatedColumns);
                 preparedStatement.setString(1, this.username);
@@ -59,11 +76,12 @@ public class User {
                 preparedStatement.setInt(4, this.user_group_id);
                 preparedStatement.executeUpdate();
                 ResultSet rs = preparedStatement.getGeneratedKeys();
-                if(rs.next()) {
+                if (rs.next()) {
                     this.id = rs.getInt(1);
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
+                System.out.println("!!! ---> User group id does not exist or address email is currently in use.");
             }
         } else {
             //update
@@ -77,8 +95,12 @@ public class User {
                 preparedStatement.setInt(4, this.user_group_id);
                 preparedStatement.setInt(5, this.id);
                 preparedStatement.executeUpdate();
-            } catch (SQLException e) { e.printStackTrace();}
+            } catch (SQLException e) {
+                //e.printStackTrace();
+                System.out.println("!!! ---> User group id does not exist or address email is currently in use.");
+            }
         }
+
     }
 
     public void delete() {
@@ -111,7 +133,9 @@ public class User {
                 user.user_group_id = rs.getInt("user_group_id");
                 return user;
             }
-        }catch (SQLException e){e.printStackTrace();}
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
         return null;
     }
 
