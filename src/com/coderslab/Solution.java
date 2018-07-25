@@ -140,4 +140,24 @@ public class Solution {
         return null;
     }
 
+    public static ArrayList<Solution> loadAllByUserId(int userId) {
+        try {
+            ArrayList<Solution> solutions = new ArrayList<>();
+            String sql = "SELECT id, created, updated, description FROM solution WHERE users_id = ?";
+            PreparedStatement preparedStatement;
+            preparedStatement = DbManager.getInstance().getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, userId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()) {
+                Solution solution = new Solution();
+                solution.id = rs.getInt("id");
+                solution.created = rs.getDate("created");
+                solution.updated = rs.getDate("updated");
+                solution.description = rs.getString("description");
+                solutions.add(solution);
+            }
+            return solutions;
+        } catch (SQLException e) { e.printStackTrace(); }
+        return null;
+    }
 }
