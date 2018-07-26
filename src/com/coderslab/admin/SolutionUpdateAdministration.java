@@ -1,10 +1,8 @@
 package com.coderslab.admin;
 
-import com.coderslab.model.Exercise;
 import com.coderslab.model.Solution;
 import com.coderslab.sql.DbManager;
 
-import java.lang.reflect.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -63,8 +61,8 @@ public class SolutionUpdateAdministration {
         boolean action = true;
         while (action) {
             System.out.println("--------------------------------------------------------------------------------------");
-            System.out.println(" * add");
-            System.out.println(" * view");
+            System.out.println(" * add solution");
+            System.out.println(" * view solutions");
             System.out.println(" * quit");
             System.out.println("--------------------------------------------------------------------------------------");
             String choice = getStringFromUser("Please type one out of above actions: ");
@@ -75,8 +73,18 @@ public class SolutionUpdateAdministration {
 
                     System.out.println("--------------------------------------------------------------------------------------");
                     int choice_exercise = getIntFromUser("Please type number of exercise you want to add solution: ");
-                    Exercise exerciseToUpdate = Exercise.loadById(choice_exercise);
 
+                    ArrayList<Solution> solutionsToUpdate = Solution.loadAllByExerciseId(choice_exercise);
+                    Solution firstSolutionToUpdate = solutionsToUpdate.get(0);
+
+                    firstSolutionToUpdate.setDescription(getStringFromUser("Please type your solution: "));
+
+                    java.util.Date current = new java.util.Date();
+                    long milis = current.getTime();
+                    java.sql.Date updated = new java.sql.Date(milis);
+
+                    firstSolutionToUpdate.setUpdated(updated);
+                    firstSolutionToUpdate.saveToDB();
                     break;
                 case "view":
                     ArrayList<Solution> solutions = Solution.loadAllByUserId(idFromConsole);
