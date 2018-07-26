@@ -111,5 +111,4 @@ public class Group {
         } catch (SQLException e) { e.printStackTrace(); }
         return null;
     }
-
 }
